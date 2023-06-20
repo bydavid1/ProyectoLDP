@@ -1,5 +1,10 @@
 #include <iostream>
 #include <string>
+
+
+#ifndef EMPLEADO_H
+#define EMPLEADO_H
+
 using namespace std;
 
 class Empleado {
@@ -33,3 +38,5 @@ public:
         return sexo;
     }
 };
+
+#endif
