@@ -5,8 +5,8 @@
 
 class Tecnico : public Empleado {
 public:
-    Tecnico(string nombre, string direccion, string fechaNacimiento, char sexo)
-        : Empleado(nombre, direccion, fechaNacimiento, sexo) {}
+    Tecnico(string nombre, string Apellido, string direccion, string fechaNacimiento, char sexo, int Sueldo)
+        : Empleado(nombre,Apellido, direccion, fechaNacimiento, sexo, Sueldo) {}
 
     void mostrarInformacion() {
         cout << "Tipo de empleado: Técnico" << endl;
