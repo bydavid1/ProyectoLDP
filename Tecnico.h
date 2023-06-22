@@ -4,13 +4,14 @@
 #include "Empleado.h"
 
 class Tecnico : public Empleado {
-public:
-    Tecnico(string nombre, string Apellido, string direccion, string fechaNacimiento, char sexo, int Sueldo)
-        : Empleado(nombre,Apellido, direccion, fechaNacimiento, sexo, Sueldo) {}
+private:
+    double sueldo;
 
-    void mostrarInformacion() {
-        cout << "Tipo de empleado: Técnico" << endl;
-    }
+public:
+    Tecnico(const string& nombre, const string& direccion, const string& fechaNacimiento, char sexo);
+    virtual ~Tecnico();
+
+    double calcularSalario() const;
 };
 
 #endif

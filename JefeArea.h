@@ -4,13 +4,14 @@
 #include "Empleado.h"
 
 class JefeArea : public Empleado {
-public:
-    JefeArea(string nombre, string Apellido, string direccion, string fechaNacimiento, char sexo, int Sueldo)
-        : Empleado(nombre, Apellido, direccion, fechaNacimiento, sexo, Sueldo) {}
+private:
+    double sueldo;
 
-    void mostrarInformacion() {
-        cout << "Tipo de empleado: Jefe de área" << endl;
-    }
+public:
+    JefeArea(const string& nombre, const string& direccion, const string& fechaNacimiento, char sexo);
+    virtual ~JefeArea();
+
+    double calcularSalario() const;
 };
 
 #endif
