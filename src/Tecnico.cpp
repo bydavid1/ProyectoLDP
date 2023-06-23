@@ -8,5 +8,6 @@ Tecnico::~Tecnico() {
 }
 
 double Tecnico::calcularSalario() const {
-    return sueldo - (sueldo * 0.075); // Descuento del 7.5% (ISSS)
+    // El tecnico no recibe descuento de renta
+    return sueldo - (sueldo * 0.075) - (sueldo * 0.0775);
 }
