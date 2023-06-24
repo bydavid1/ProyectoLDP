@@ -17,6 +17,7 @@ int main()
     int contadorSupervisores = 0;
     int contadorTecnicos = 0;
 
+
     int opcion;
     do
     {
@@ -70,16 +71,14 @@ int main()
             cout << "Técnicos: " << contadorTecnicos << endl;
             break;
         case 4:
-        {
-            string nombre, Apellido, direccion, fechaNacimiento;
+        
+            string nombre, direccion, fechaNacimiento;
             char sexo;
             int Sueldo;
 
             cout << "Agregar nuevo empleado" << endl;
             cout << "Nombre: ";
             cin >> nombre;
-            cout << "Apellido: ";
-            cin >> Apellido;
             cout << "Dirección: ";
             cin >> direccion;
             cout << "Fecha de Nacimiento: ";
@@ -91,14 +90,57 @@ int main()
 
             // Agregar nuevo empleado al vector empleados
             // Puedes implementar la lógica para crear la instancia del empleado correspondiente según su rol y agregarlo al vector
+             // Solicitar información adicional según el rol del empleado
 
+         string rol;
+         cout << "Rol (Gerente/JefeArea/Supervisor/Tecnico): ";
+         cin >> rol;
+
+         if (rol == "Gerente.h") {
+            string sucursal;
+            cout << "sucursal: ";
+            cin >> sucursal;
+
+            // Crear instancia de Gerente y agregarlo al vector
+          Gerente* nuevoGerente = new Gerente(nombre, direccion, fechaNacimiento, sexo);
+             empleados.push_back(nuevoGerente);
+
+           } else if (rol == "JefeArea") {
+            string Area;
+            cout << "Nombre Area: ";
+            cin >> Area;
+
+            // Crear instancia de JefeArea y agregarlo al vector
+           JefeArea* nuevoJefeArea = new JefeArea(nombre, direccion, fechaNacimiento, sexo);
+          empleados.push_back(nuevoJefeArea);
+
+         }else if (rol == "Supervisor") {
+            string departamento;
+            cout << "Departamento: ";
+            cin >> departamento;
+
+         // Crear instancia de Supervisor y agregarlo al vector
+                
+            Supervisor *nuevoSupervisor = new Supervisor(nombre, direccion, fechaNacimiento, sexo);
+           empleados.push_back(nuevoSupervisor);
+
+            }else if (rol == "Tecnico") {
+            
+           
+            string campo;
+            cout << "Nombre del campo: ";
+            cin >> campo;
+
+                // Crear instancia de Tecnico y agregarlo al vector
+                Tecnico* nuevoTecnico = new Tecnico(nombre, direccion, fechaNacimiento, sexo);
+                 empleados.push_back(nuevoTecnico);
+
+            } else {
+          
+            
+                cout << "Rol no válido. No se agregó ningún empleado." << endl;
+            }
             break;
-        }
-        case 0:
-            cout << "Saliendo del programa..." << endl;
-            break;
-        default:
-            cout << "Opción inválida. Intente nuevamente." << endl;
         }
 
     } while (opcion != 0);
@@ -110,4 +152,4 @@ int main()
     }
 
     return 0;
-}
+} 
