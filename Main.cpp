@@ -160,17 +160,52 @@ void agregarNuevoEmpleado(vector<Empleado *> &empleados)
 
 void generarEmpleadosPrueba(vector<Empleado *> &empleados)
 {
-    // Crear empleados de prueba
-    Empleado *empleado1 = new Gerente("John Doe", "123 Main St", "01/01/1990", 'M');
-    Empleado *empleado2 = new JefeArea("Jane Smith", "456 Elm St", "02/02/1991", 'F');
-    Empleado *empleado3 = new Supervisor("Mike Johnson", "789 Oak St", "03/03/1992", 'M');
-    Empleado *empleado4 = new Tecnico("Emily Davis", "987 Pine St", "04/04/1993", 'F');
-    Empleado *empleado5 = new Gerente("Robert Brown", "321 Maple St", "05/05/1994", 'M');
+    // Nombres de empleados
+    vector<string> nombres = {
+        "John Doe", "Jane Smith", "Michael Johnson", "Emily Davis", "Robert Brown",
+        "Olivia Wilson", "James Miller", "Sophia Anderson", "Daniel Taylor", "Mia Martinez",
+        "William Thomas", "Isabella Garcia", "Benjamin Hernandez", "Ava Lopez", "David Gonzalez",
+        "Emma Lee", "Alexander Clark", "Sofia Rodriguez", "Matthew Lewis", "Abigail Young",
+        "Elijah Hall", "Charlotte Moore", "Joseph Adams", "Scarlett Wright", "Andrew King"
+    };
 
-    // Agregar empleados al vector
-    empleados.push_back(empleado1);
-    empleados.push_back(empleado2);
-    empleados.push_back(empleado3);
-    empleados.push_back(empleado4);
-    empleados.push_back(empleado5);
+    // Crear 5 supervisores
+    for (int i = 0; i < 5; i++) {
+        string nombre = nombres[i];
+        string direccion = "Dirección " + to_string(i + 1);
+        string fechaNacimiento = "01/01/1980";
+        char sexo = (i % 2 == 0) ? 'M' : 'F';
+        Empleado* supervisor = new Supervisor(nombre, direccion, fechaNacimiento, sexo);
+        empleados.push_back(supervisor);
+    }
+
+    // Crear 2 gerentes
+    for (int i = 5; i < 7; i++) {
+        string nombre = nombres[i];
+        string direccion = "Dirección " + to_string(i + 1);
+        string fechaNacimiento = "01/01/1975";
+        char sexo = (i % 2 == 0) ? 'M' : 'F';
+        Empleado* gerente = new Gerente(nombre, direccion, fechaNacimiento, sexo);
+        empleados.push_back(gerente);
+    }
+
+    // Crear 3 jefes de área
+    for (int i = 7; i < 10; i++) {
+        string nombre = nombres[i];
+        string direccion = "Dirección " + to_string(i + 1);
+        string fechaNacimiento = "01/01/1982";
+        char sexo = (i % 2 == 0) ? 'M' : 'F';
+        Empleado* jefeArea = new JefeArea(nombre, direccion, fechaNacimiento, sexo);
+        empleados.push_back(jefeArea);
+    }
+
+    // Crear 15 técnicos
+    for (int i = 10; i < 25; i++) {
+        string nombre = nombres[i];
+        string direccion = "Dirección " + to_string(i + 1);
+        string fechaNacimiento = "01/01/1990";
+        char sexo = (i % 2 == 0) ? 'M' : 'F';
+        Empleado* tecnico = new Tecnico(nombre, direccion, fechaNacimiento, sexo);
+        empleados.push_back(tecnico);
+    }
 }
