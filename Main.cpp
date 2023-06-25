@@ -9,49 +9,8 @@
 
 using namespace std;
 
-void ordenarEmpleadosPorApellido(vector<Empleado *> &empleados);
-void ordenarEmpleadosPorSueldo(vector<Empleado *> &empleados);
-void mostrarCantidadEmpleadosSegunRoles(const vector<Empleado *> &empleados);
-void agregarNuevoEmpleado(vector<Empleado *> &empleados);
-void generarEmpleadosPrueba(vector<Empleado *> &empleados);
-
-int main()
-{
-    vector<Empleado *> empleados;
-
-    generarEmpleadosPrueba(empleados);
-
-    int opcion;
-    do
-    {
-        cout << "Menú:" << endl;
-        cout << "1. Ordenar empleados por apellido" << endl;
-        cout << "2. Ordenar empleados por sueldo" << endl;
-        cout << "3. Mostrar cantidad de empleados según roles" << endl;
-        cout << "4. Agregar nuevo empleado" << endl;
-        cout << "0. Salir" << endl;
-        cout << "Ingrese una opción: ";
-        cin >> opcion;
-
-        switch (opcion)
-        {
-        case 1:
-            ordenarEmpleadosPorApellido(empleados);
-            break;
-        case 2:
-            ordenarEmpleadosPorSueldo(empleados);
-            break;
-        case 3:
-            mostrarCantidadEmpleadosSegunRoles(empleados);
-            break;
-        case 4:
-            agregarNuevoEmpleado(empleados);
-            break;
-        }
-
-    } while (opcion != 0);
-
-    return 0;
+void limpiarConsola() {
+    cout << "\033[2J\033[1;1H";
 }
 
 void ordenarEmpleadosPorApellido(vector<Empleado *> &empleados)
@@ -59,10 +18,10 @@ void ordenarEmpleadosPorApellido(vector<Empleado *> &empleados)
     sort(empleados.begin(), empleados.end(), [](Empleado *emp1, Empleado *emp2)
          { return emp1->getNombre() < emp2->getNombre(); });
 
-    cout << "Empleados ordenados por apellido:" << endl;
+    cout << "\033[44mEmpleados ordenados por apellido:\033[0m" << endl;
     for (Empleado *emp : empleados)
     {
-        cout << emp->getNombre() << endl;
+        cout << "- " << emp->getNombre() << endl;
     }
 }
 
@@ -72,10 +31,10 @@ void ordenarEmpleadosPorSueldo(vector<Empleado *> &empleados)
          { return emp1->calcularSalario() < emp2->calcularSalario(); });
 
     // Mostrar la lista ordenada de empleados
-    cout << "Empleados ordenados por sueldo:" << endl;
+    cout << "\033[44mEmpleados ordenados por sueldo:\033[0m" << endl;
     for (Empleado *emp : empleados)
     {
-        cout << emp->getNombre() << ": " << emp->calcularSalario() << endl;
+        cout << "- " << emp->getNombre() << ": " << emp->calcularSalario() << endl;
     }
 }
 
@@ -106,11 +65,11 @@ void mostrarCantidadEmpleadosSegunRoles(const vector<Empleado *> &empleados)
         }
     }
 
-    cout << "Cantidad de empleados según roles:" << endl;
-    cout << "Gerentes: " << contadorGerentes << endl;
-    cout << "Jefes de Área: " << contadorJefesArea << endl;
-    cout << "Supervisores: " << contadorSupervisores << endl;
-    cout << "Técnicos: " << contadorTecnicos << endl;
+    cout << "\033[44mCantidad de empleados por roles:\033[0m" << endl;
+    cout << "- Gerentes: " << contadorGerentes << endl;
+    cout << "- Jefes de Área: " << contadorJefesArea << endl;
+    cout << "- Supervisores: " << contadorSupervisores << endl;
+    cout << "- Técnicos: " << contadorTecnicos << endl;
 }
 
 void agregarNuevoEmpleado(vector<Empleado *> &empleados)
@@ -118,44 +77,42 @@ void agregarNuevoEmpleado(vector<Empleado *> &empleados)
     string nombre, direccion, fechaNacimiento;
     char sexo;
 
-    cout << "Agregar nuevo empleado" << endl;
+    cout << "\033[44mAgregar nuevo empleado\033[0m" << endl;
     cout << "Nombre: ";
     cin >> nombre;
-    cout << "Dirección: ";
+    cout << "Direccion: ";
     cin >> direccion;
     cout << "Fecha de Nacimiento: ";
     cin >> fechaNacimiento;
     cout << "Sexo: ";
     cin >> sexo;
 
-    string rol;
-    cout << "Rol (Gerente/JefeArea/Supervisor/Tecnico): ";
+    int rol;
+    cout << "Rol \033[33m(1- Gerente/ 2- JefeArea/ 3- Supervisor/ 4- Tecnico): \033[0m";
     cin >> rol;
 
-    if (rol == "Gerente")
-    {
-        Gerente *nuevoGerente = new Gerente(nombre, direccion, fechaNacimiento, sexo);
-        empleados.push_back(nuevoGerente);
+    Empleado* nuevoEmpleado = nullptr;
+    switch (rol) {
+        case 1:
+            nuevoEmpleado = new Gerente(nombre, direccion, fechaNacimiento, sexo);
+            break;
+        case 2:
+            nuevoEmpleado = new JefeArea(nombre, direccion, fechaNacimiento, sexo);
+            break;
+        case 3:
+            nuevoEmpleado = new Supervisor(nombre, direccion, fechaNacimiento, sexo);
+            break;
+        case 4:
+            nuevoEmpleado = new Tecnico(nombre, direccion, fechaNacimiento, sexo);
+            break;
+        default:
+            cout << "\033[41mRol invalido. No se agrega empleado.\033[0m" << endl;
+            return;
     }
-    else if (rol == "JefeArea")
-    {
-        JefeArea *nuevoJefeArea = new JefeArea(nombre, direccion, fechaNacimiento, sexo);
-        empleados.push_back(nuevoJefeArea);
-    }
-    else if (rol == "Supervisor")
-    {
-        Supervisor *nuevoSupervisor = new Supervisor(nombre, direccion, fechaNacimiento, sexo);
-        empleados.push_back(nuevoSupervisor);
-    }
-    else if (rol == "Tecnico")
-    {
-        Tecnico *nuevoTecnico = new Tecnico(nombre, direccion, fechaNacimiento, sexo);
-        empleados.push_back(nuevoTecnico);
-    }
-    else
-    {
-        cout << "Rol inválido. No se agrega empleado." << endl;
-    }
+
+    empleados.push_back(nuevoEmpleado);
+    limpiarConsola();
+    cout << "\033[42mEmpleado agregado\033[0m" << endl;
 }
 
 void generarEmpleadosPrueba(vector<Empleado *> &empleados)
@@ -208,4 +165,51 @@ void generarEmpleadosPrueba(vector<Empleado *> &empleados)
         Empleado* tecnico = new Tecnico(nombre, direccion, fechaNacimiento, sexo);
         empleados.push_back(tecnico);
     }
+}
+
+int main()
+{
+    vector<Empleado *> empleados;
+
+    generarEmpleadosPrueba(empleados);
+
+    int opcion;
+    do
+    {
+        cout << "Menu:" << endl;
+        cout << "1. Ordenar empleados por apellido" << endl;
+        cout << "2. Ordenar empleados por sueldo" << endl;
+        cout << "3. Mostrar cantidad de empleados por roles" << endl;
+        cout << "4. Agregar nuevo empleado" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+
+        limpiarConsola();
+
+        switch (opcion)
+        {
+        case 1:
+            ordenarEmpleadosPorApellido(empleados);
+            break;
+        case 2:
+            ordenarEmpleadosPorSueldo(empleados);
+            break;
+        case 3:
+            mostrarCantidadEmpleadosSegunRoles(empleados);
+            break;
+        case 4:
+            agregarNuevoEmpleado(empleados);
+            break;
+        case 0:
+            break;
+        default:
+            cout << "\033[41mOpcion invalida.\033[0m" << endl;
+            break;
+        }
+        
+
+    } while (opcion != 0);
+
+    return 0;
 }
