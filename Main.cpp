@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "Empleado.h"
-#include "Gerente.h"
-#include "JefeArea.h"
-#include "Supervisor.h"
-#include "Tecnico.h"
+#include "include/Empleado.h"
+#include "include/Gerente.h"
+#include "include/JefeArea.h"
+#include "include/Supervisor.h"
+#include "include/Tecnico.h"
 
 using namespace std;
 
@@ -38,14 +38,14 @@ int main()
                  { return emp1->getNombre() < emp2->getNombre(); });
             break;
         case 2:
-            // Ordenar empleados por sueldo
-            sort(empleados.begin(), empleados.end(), [](const Empleado &emp1, const Empleado &emp2)
-                 { return emp1.calcularSalario() < emp2.calcularSalario(); });
-            break;
-        case 3:
+                    // Ordenar empleados por sueldo
+                sort(empleados.begin(), empleados.end(), [](const Empleado *emp1, const Empleado *emp2)
+                 { return emp1->calcularSalario() < emp2->calcularSalario(); });
+                  break;
+             case 3:
 
-            for (Empleado *emp : empleados)
-            {
+             for (Empleado *emp : empleados)
+             {
                 if (dynamic_cast<Gerente *>(emp) != nullptr)
                 {
                     contadorGerentes++;
